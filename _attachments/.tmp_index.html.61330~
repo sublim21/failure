@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My New CouchApp</title>
+    <link rel="stylesheet" href="style/main.css" type="text/css">
+  </head>
+  <body>
+    <div id="blog">
+    
+	<p>
+		A never ending stream of failure follows below...
+		
+		So basically, i'm failing at vhosts now.  It's kind of hard to 'wrap' my mind around it mostly because
+		i think i don't understand how computers communicate, like http (whatever the hell that is)
+		what's it contains, how a couchdb understands it, etc.  I'm sure some smart elitestIslamoFascistCommieIndustrialComplexiestNeoConLiberal could explain it to me
+		or i could just fail forward and report all of my findings.  
+	
+		So i'm just going to keep a running list of things i've tried and how they've failed.  
+		
+		My first goal is to make the two images below this paragraph section appear.  
+		
+		however, when adding vhosts, my cygwin fails hardcore with couchapp push online (i have defined .couchapprc that pushes correctly without a vhost)
+		
+		so here are my trials with vhosts
+		
+		{
+			section:vhosts,
+			option:failure.couchone.com,
+			value:/blog/_design/blog/index.html
+		}
+		
+		result: failure.couchone.com loads but pictures do not load
+		
+		vhosts as
+		{
+			section:vhosts,
+			option:failure.couchone.com,
+			value:/blog/_design/blog/_rewrite
+		}
+		
+		with a rewrites.json inside the _design as
+		[
+			{
+				"from":"",
+				"to":"index.html"
+			},
+			{
+				"from":"/blog/*",
+				"to":"../../*"
+			}
+		]
+		
+		result: images come in good.
+		check 'test' database with /test/_design/test/index.html
+		
+		result:failure
+		odd, can't find the database...
+		try changing vhosts
+		
+
+		
+		
+		<img src="http://failure.couchone.com/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+		<img src="/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+	</p>
+	<a href="http://failure.couchone.com/test/_design/test/index.html" target="_blank">this link should open failure.couchone.com/test/_design/test/index.html</a>
+	</br>
+	<a href="/test/_design/test/index.html" target="_blank">this link should open failure.couchone.com/test/_design/test/index.html</a>
+	<!--
+	<p>
+	but this somehow busts my couchapp in all kinds of new cool awesome ways.
+	
+	push from cygwin.  yes, im using cygwin.  REAL MEN FIGHT WITH THEIR OS'S IN AN EPIC BATTLE OF JUST NOT SUCKING.  you freaking mac guys are so soft.
+	
+	anywayz,
+	
+	so i can now type http://failure.couchone.com and it'll redirect to /blog/_design/blog/index.html
+	
+	because i defined inside my vhosts a key value of
+	
+	{"failure.couchone.com" : "/blog/_design/blog/_rewrite"}
+	
+	inside the blog design file i have a rewrite defined as 
+	
+[{
+	"from":"",
+	"to":"index.html"
+}]
+
+which now allows me to serve this piece of blog awesomeness to you.
+
+and allows me to pimp some terrible code i've worked on.  
+
+like a terrible chatting program with a rudimentary test code suite:
+<a href="http://failure.couchone.com/chat/_design/chat/index.html" target="_blank">a terrible chat program with a rudimentary test code suite</a>
+<a href="http://failure.couchone.com/finalmusicplayer/_design/finalMusicPlayer/index.html" target="_blank">or an even worse musicplayer</a>
+
+however, by doing this kind of crazy superawesomesauce, i can no longer push by cygwin and couchapp, i get a generated error.
+
+PIC OF SUPERFAILURE BELOW
+<img src="http://failure.couchone.com/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+<img src="/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+
+that makes me a sad panda
+</p>
+	</div>
+	!-->
+  </body>
+
+</html>

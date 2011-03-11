@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My New CouchApp</title>
+    <link rel="stylesheet" href="/style/default.css" type="text/css">
+  </head>
+  <body>
+  	
+    <div id="blog">
+    
+
+		<p style="text-align:center; white-space:pre;">A never ending stream of failure follows below...</p>
+
+	<p class="failure" style="white-space:pre;">		
+		So basically, I've spent the last few days failing at vhosts and re-writes. 
+		
+		Max Ogden was kind enough to record a webcast explaining pretty urls (<a href="http://vimeo.com/20773112"><img style="width:1em;" src="http://failure.couchone.com:5984/blog/d8db979a54b0bd8eb0778f57b5002eb6/link.jpg"></img>AGE</a>)
+		but I still can't get accomplish my goal which i'm hoping someone can please explain to me how to accomplish.
+		
+		My Goal is to serve the design document located at /blog/_design/blog/index.html
+		
+		at the location failure.couchone.com
+		(which btw, it's currently doing)
+		
+		but in a way that doesn't 'bust' the other code i've written.  For example, try accessing the following test design file which is the basic couchapp
+		<a href="/test/_design/test/index.html" target="_blank">href is set to /test/_design/test/index.html</a>
+		
+		you're returned the document located at the location, not an executing design document.
+		
+		In fact, all of my references outside of /blog/ are 'messed up' and i don't know/understand why.
+		
+		
+		My current settings are as follows:
+		
+		I've created a vhosts file as per Maxs' video with the following key:value pair
+		
+		{
+			failure.couchone.com : /blog/_design/blog/_rewrite
+		}
+		
+		inside the blog design document i've created a rewrites.json with the following object
+		
+		[
+			{
+				"from":"",
+				"to":"index.html"
+			},
+			{
+				"from":"/blog/*",
+				"to":"../../*"
+			},
+			{
+				"from":"*",
+				"to":""
+			}
+		]
+		
+		This allows me to serve you the page you're currently reading from the app at /blog/_design/blog/index.html Images work, but scripts with hrefs like /script/jquery-1.4.4.min.js won't work
+		neither will css btw (so excuse the 'awesomeness' of this page)
+		
+		I'd really appreciate someone going:
+		
+		HEY YOU:
+			DO THIS
+		
+		In a manner I can understand.
+		
+		and if you wanna be superawesomecool LIKE THESE FELLOWS
+
+		<img style="text-align:center;" src="http://failure.couchone.com:5984/blog/d8db979a54b0bd8eb0778f57b500204c/finalStupid.JPG"></img>
+			The more interesting thing about this image is that it made sense to a few people in a relatively short amount of time.  And those people?  they're making things you could possibly use.
+		<!--
+		you can explain to me a hurrduurRRr manner where the fault lies in my understanding of 
+		
+		
+		So here's my
+		
+		The second is sending things it 'finds' from the source of blog up to spaces with the rest of the stuff after the slash
+		
+		But if i ran rewrite purely as 
+		
+		[
+			{
+				"from":"",
+				"to":"index.html"
+			},
+			{
+				"from":"/blog/*",
+				"to":"../../*"
+			}
+		]		
+		
+		I can't even access failure.couchone.com/test/_design/test/index.html 
+		or anything else for that matter.  like stupid pictures.  Likes This one
+		
+		
+		  
+		
+		 
+		 but, r
+		</br>
+		However, i still can't 'wrap' my mind around it.  Particularly how to handle hrefs, links and the like within a webpage.
+		</br>
+		So I
+		however, i'm still failing at achieving my end goal. 
+		i'm failing at vhosts now.  It's kind of hard to 'wrap' my mind around it mostly because
+		i think i don't understand how computers communicate, like http (whatever the hell that is)
+		what's it contains, how a couchdb understands it, etc.  I'm sure some smart elitestIslamoFascistCommieIndustrialComplexiestNeoConLiberal could explain it to me
+		or i could just fail forward and report all of my findings.  
+	
+		So i'm just going to keep a running list of things i've tried and how they've failed.  
+		
+		My first goal is to make the two images below this paragraph section appear.  
+		
+		however, when adding vhosts, my cygwin fails hardcore with couchapp push online (i have defined .couchapprc that pushes correctly without a vhost)
+		
+		so here are my trials with vhosts
+		
+		{
+			section:vhosts,
+			option:failure.couchone.com,
+			value:/blog/_design/blog/index.html
+		}
+		
+		result: failure.couchone.com loads but pictures do not load
+		
+		vhosts as
+		{
+			section:vhosts,
+			option:failure.couchone.com,
+			value:/blog/_design/blog/_rewrite
+		}
+		
+		with a rewrites.json inside the _design as
+		[
+			{
+				"from":"",
+				"to":"index.html"
+			},
+			{
+				"from":"/blog/*",
+				"to":"../../*"
+			}
+		]
+		
+		result: images come in good.
+		check 'test' database with /test/_design/test/index.html
+		
+		result:failure
+		odd, can't find the database...
+		try changing vhosts
+		
+
+		
+		
+		<img src="http://failure.couchone.com/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+		<img src="/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+	</p>
+	<a href="http://failure.couchone.com/test/_design/test/index.html" target="_blank">this link should open failure.couchone.com/test/_design/test/index.html</a>
+	</br>
+	<a href="/test/_design/test/index.html" target="_blank">this link should open failure.couchone.com/test/_design/test/index.html</a>
+	<a href="test/_design/test/index.html" target="_blank">this link should open failure.couchone.com/test/_design/test/index.html</a>
+
+	<p>
+	but this somehow busts my couchapp in all kinds of new cool awesome ways.
+	
+	push from cygwin.  yes, im using cygwin.  REAL MEN FIGHT WITH THEIR OS'S IN AN EPIC BATTLE OF JUST NOT SUCKING.  you freaking mac guys are so soft.
+	
+	anywayz,
+	
+	so i can now type http://failure.couchone.com and it'll redirect to /blog/_design/blog/index.html
+	
+	because i defined inside my vhosts a key value of
+	
+	{"failure.couchone.com" : "/blog/_design/blog/_rewrite"}
+	
+	inside the blog design file i have a rewrite defined as 
+	
+[{
+	"from":"",
+	"to":"index.html"
+}]
+
+which now allows me to serve this piece of blog awesomeness to you.
+
+and allows me to pimp some terrible code i've worked on.  
+
+like a terrible chatting program with a rudimentary test code suite:
+<a href="http://failure.couchone.com/chat/_design/chat/index.html" target="_blank">a terrible chat program with a rudimentary test code suite</a>
+<a href="http://failure.couchone.com/finalmusicplayer/_design/finalMusicPlayer/index.html" target="_blank">or an even worse musicplayer</a>
+
+however, by doing this kind of crazy superawesomesauce, i can no longer push by cygwin and couchapp, i get a generated error.
+
+PIC OF SUPERFAILURE BELOW
+<img src="http://failure.couchone.com/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+<img src="/blog/d5d346e4a93a3ea6006f9c7858000752/superfailure.PNG"></img>
+
+that makes me a sad panda
+</p>
+	</div>
+	!-->
+  </body>
+
+</html>
